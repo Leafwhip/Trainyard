@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trainyard</title>
+        <link rel="stylesheet" href="trainyard.css">
+        <link rel="icon" type="image/x-icon" href="images/trainyard/trainyard.ico"/>
+    </head>
+    <body>
+        <div id="creator">
+            <h3>Trainyard Level Creator</h3>
+            <div id="screenshot">
+                <div id="layers">
+                    <table id="layer1"></table>
+                    <table id="layer2"></table>
+                    <table id="layer3"></table>
+                    <table id="topLayer"></table>
+                </div>
+                <table id="creator-grid"></table>
+                <div id="editor">
+                    <textarea id="edit-output" readonly></textarea>
+                    <div id="direction-buttons">
+                        <button id="up">Up</button>
+                        <button id="down">Down</button>
+                        <button id="left">Left</button>
+                        <button id="right">Right</button>
+                    </div><br>
+                    <div id="color-buttons">
+                        <button id="red">Red</button>
+                        <button id="blue">Blue</button>
+                        <button id="yellow">Yellow</button>
+                        <button id="green">Green</button>
+                        <button id="orange">Orange</button>
+                        <button id="purple">Purple</button>
+                        <button id="brown">Brown</button>
+                        <button id="backspace">Delete</button>
+                    </div><br>
+                    <button id="confirm-edit">Confirm</button>
+                    <button id="cancel-edit">Cancel</button>
+                </div>
+                <div id="player">
+                    <table id="player-grid"></table>
+                    <div id="win-div-holder">
+                        <div id="win-div">
+                            <h2>LEVEL COMPLETE!</h2>
+                            <div class='flex-break'></div>
+                            <span id="win-track-count"></span>
+                            <img src="images/trainyard/hippo.gif">
+                            <span id="win-journey"></span>
+                            <div class="flex-break"></div>
+                            <button id="replayLevelButton">Replay Level</button>
+                            <button id="editLevelButton">Edit Level</button>
+                            <button id="shareSolutionButton">Share Solution</button>
+                            <button id="backToMenu">Back To Menu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div id="toolbar">
+                <button id="start">Start</button>
+                <button id="end">End</button>
+                <button id="paint">Paint</button>
+                <button id="scissors">Scissors</button>
+                <button id="rock">Rock</button>
+                <button id="delete">Delete</button>
+                <button id="edit">Edit</button>
+                <br>
+                <span id="selected-text">Selected: none</span>
+            </div>
+            
+            <div id="other-buttons">
+                <button id="play">Play Level</button>
+                <button id="clear">Clear Level</button>
+                <button id="to-menu-button">To Menu</button>
+                <button id="get-level-code-button">Get Level Code</button>
+                <span id="copied" style="display:none">Copied!</span>
+            </div>
+            <div id="load-a-level">
+                <span>Load a level here: </span>
+                <input id="level-code-input" placeholder="Level code here">
+                <button id="load-level-button">Load</button>
+            </div>
+            
+            <div id="controls">
+                <span id="track-count">Tracks:0+0</span>
+                <span id="journey-count" style="margin-left:20px;">Journey: 0</span>
+                <span style="margin-left:20px;">Speed:</span>
+                <input type="range" min="-100" max="100" value="0" id="speed-slider">
+                <br>
+                <button id="start-button">Start the trains!</button>
+                <button id="pause-button">Back to the drawing board!</button>
+                <button id="erase">Erase</button>
+                <button id="undo">Undo</button>
+                <button id="eraseall">Erase All</button>
+                <br>
+                <button id="unplay">Back</button>
+                <button id="to-menu-again">Leave</button>
+                <span id="erasing">Erasing: not erasing</span>
+                <span id="status" style="display:none">Status: good</span>
+            </div>
+            <div id="canvas-holder-holder">
+                <h4>Right click this canvas and click "Copy image" or "Save image as".</h4>
+                <div id="canvas-holder"></div>
+                <button id="back-to-level">Back To Level</button>
+            </div>
+        </div>
+        <div id="menu">
+            <span id="change-background-color">Change your background color! rgb:
+                <input type="text" id="r1">
+                <input type="text" id="g1">
+                <input type="text" id="b1"> to 
+                <input type="text" id="r2">
+                <input type="text" id="g2">
+                <input type="text" id="b2">
+            </span>
+            <button id="reset-colors">Reset</button><br>
+            <h1>trainyard for pc!</h1>
+            <h3>original game by matt rix</h3>
+            <h5>If the game doesn't work, try playing on Chrome.</h5>
+            <button id="create">Create a Level</button>
+            <h2>How To Play</h2>
+            <p>
+                Drag your mouse across the screen for the trains to follow.
+                Trains will come from start squares and go to goal squares with matching colors.
+                If two trains collide, cross over, or merge, their colors will mix.
+                Going through a paint square will paint the train its color.
+                Going through a scissor square will split the train in two.
+                Going into a rock square or a square with no available tracks will cause your train to crash.
+                You win if all your trains are in goals, with no trains remaining and no trains crashed.
+            </p>
+            <a href="https://trainyard.ca">Actual trainyard website</a>
+            <div id="levelButtons">
+                <h2>Play a level! (Your stars: <span id="stars"></span>★)</h2>
+                <h3>Trainyard Express Basic Levels</h3>
+                <h5>British Columbia Puzzles</h5>
+                <button id="greenline">Green Line</button>
+                <button id="thethree">The Three</button>
+                <button id="puremagic">Pure Magic</button>
+                <button id="twoliner">Two Liner</button>
+                <button id="thelittleone">The Little One</button>
+                <h5>Alberta Puzzles</h5>
+                <button id="ahardplace">A Hard Place</button>
+                <button id="youdid">You Did</button>
+                <button id="traveller">Traveller</button>
+                <button id="inthemiddle">In The Middle</button>
+                <button id="foray">Foray</button>
+                <button id="notouching">No Touching</button>
+                <button id="twofortwo">Two For Two</button>
+                <h5>Saskatchewan Puzzles</h5>
+                <button id="bluesy">Bluesy</button>
+                <button id="lantern">Lantern</button>
+                <button id="boombah">Boom Bah</button>
+                <button id="redgreen">Red Green</button>
+                <h5>Manitoba Puzzles</h5>
+                <button id="yellowtriangle">Yellow Triangle</button>
+                <button id="purpeller">Purpeller</button>
+                <button id="reflection">Reflection</button>
+                <button id="combinellow">Combinellow</button>
+                <button id="colourize">Colourize</button>
+                <button id="weightedtop">Weighted Top</button>
+                <h5>Ontario Puzzles</h5>
+                <button id="embrace">Embrace</button>
+                <button id="peegee">Pee Gee</button>
+                <button id="autumn">Autumn</button>
+                <button id="unscathed">Unscathed</button>
+                <button id="challenger">Challenger</button>
+                <button id="pleasewait">Please Wait</button>
+                <h5>Quebec Puzzles</h5>
+                <button id="berlin">Berlin</button>
+                <button id="golem">Golem</button>
+                <button id="sunburst">Sunburst</button>
+                <button id="peashooter">Pea Shooter</button>
+                <button id="scarab">Scarab</button>
+                <h5>New Brunswick Puzzles</h5>
+                <button id="prancing">Prancing</button>
+                <button id="boxseven">Box Seven</button>
+                <button id="sapling">Sapling</button>
+                <button id="matchup">Match Up</button>
+                <button id="beinggreen">Being Green</button>
+                <button id="casualty">Casualty</button>
+                <h5>Prince Edward Island Puzzles</h5>
+                <button id="niner">Niner</button>
+                <button id="teamwork">Teamwork</button>
+                <button id="returnpolicing">Return Policing</button>
+                <button id="formatic">Formatic</button>
+                <button id="rainbowarrow">Rainbow Arrow</button>
+                <h5>Nova Scotia Puzzles</h5>
+                <button id="oneway">One Way</button>
+                <button id="roundabout">Roundabout</button>
+                <button id="chromashift">Chromashift</button>
+                <button id="balsam">Balsam</button>
+                <button id="boomerang">Boomerang</button>
+                <h5>Newfoundland Puzzles</h5>
+                <button id="taxing">Taxing</button>
+                <button id="dousingtheflame">Dousing The Flame</button>
+                <button id="duplex">Duplex</button>
+                <button id="pals">Pals</button>
+                <button id="refresh">Refresh</button>
+                <h3>Trainyard Express Bonus Levels</h3>
+                <h5>Yukon Puzzles</h5>
+                <button id="partnership">Partnership</button>
+                <button id="impact">Impact</button>
+                <button id="reciprocate">Reciprocate</button>
+                <button id="sibilant">Sibilant</button>
+                <button id="moonbeams">Moonbeams</button>
+                <h5>Northwest Territories Puzzles</h5>
+                <button id="snowracer">Snowracer</button>
+                <button id="rightofpassage">Right of Passage</button>
+                <button id="midland">Midland</button>
+                <button id="downunder">Down Under</button>
+                <button id="lamport">Lamport</button>
+                <h5>Nunavut Puzzles</h5>
+                <button id="jumpingjoy">Jumping Joy</button>
+                <button id="sidewinder">Sidewinder</button>
+                <button id="dufferingate">Dufferin Gate</button>
+                <button id="entanglement">Entanglement</button>
+                <h3>Trainyard Basic Levels</h3>
+                <h5>Abbotsford Puzzles</h5>
+                <button id="redline">Red Line</button>
+                <button id="grorangelines">Grorange Lines</button>
+                <button id="yorplelines">Yorple Lines</button>
+                <button id="magicaltrains">Magical Trains</button>
+                <button id="theredcorner">The Red Corner</button>
+                <button id="purpablu">Purpablu</button>
+                <h5>Brampton Puzzles</h5>
+                <button id="arockintheway">A Rock in the Way</button>
+                <button id="greenwally">Green Wally</button>
+                <button id="yellowsnake">Yellow Snake</button>
+                <button id="uturn">U-Turn</button>
+                <button id="journey">Journey</button>
+                <h5>Calgary Puzzles</h5>
+                <button id="rainbow">Rainbow</button>
+                <button id="innieoutie">Innie Outie</button>
+                <button id="aroundtheback">Around the Back</button>
+                <button id="multicolor">Multicolor</button>
+                <button id="squiggle">Squiggle</button>
+                <button id="twotwo">Two Two</button>
+                <button id="crossover">Crossover</button>
+                <h5>Delson Puzzles</h5>
+                <button id="mellowyellow">Mellow Yellow</button>
+                <button id="deliveringoranges">Delivering Oranges</button>
+                <button id="purpleparcels">Purple Parcels</button>
+                <button id="prellow">Prellow</button>
+                <button id="aroundthebend">Around the Bend</button>
+                <button id="preenies">Preenies</button>
+                <button id="toomany">Too Many</button>
+                <h5>Edmonton Puzzles</h5>
+                <button id="yield">Yield</button>
+                <button id="blueboys">Blue Boys</button>
+                <button id="timingtest">Timing Test</button>
+                <button id="grimacetown">Grimace Town</button>
+                <button id="lemonlatency">Lemon Latency</button>
+                <button id="threereds">Three Reds</button>
+                <button id="colourtheory">Colour Theory</button>
+                <button id="secondary">Secondary</button>
+                <button id="nurple">Nurple</button>
+                <h5>Fredericton Puzzles</h5>
+                <button id="micromix">Micro Mix</button>
+                <button id="thefirst">The First</button>
+                <button id="waitoutside">Wait Outside</button>
+                <button id="ninemensmorris">Nine Men's Morris</button>
+                <button id="eeetee">Eee Tee</button>
+                <button id="relish">Relish</button>
+                <h5>Guelph Puzzles</h5>
+                <button id="mirrorsquad">Mirror Squad</button>
+                <button id="cuteloop">Cute Loop</button>
+                <button id="hourglass">Hourglass</button>
+                <button id="gauss">Gauss</button>
+                <button id="thirdwheel">Third Wheel</button>
+                <button id="turtles">Turtles</button>
+                <button id="royals">Royals</button>
+                <button id="spiced">Spiced</button>
+                <h5>Halifax Puzzles</h5>
+                <button id="handlebars">Handlebars</button>
+                <button id="compact">Compact</button>
+                <button id="wailing">Wailing</button>
+                <button id="underthefence">Under The Fence</button>
+                <button id="squads">Squads</button>
+                <button id="lasermaster">Laser Master</button>
+                <button id="aspire">Aspire</button>
+                <h5>Iqaluit Puzzles</h5>
+                <button id="totempole">Totem Pole</button>
+                <button id="western">Western</button>
+                <button id="collider">Collider</button>
+                <button id="starshipsandwich">Starship Sandwich</button>
+                <button id="inverse">Inverse</button>
+                <button id="theclassic">The Classic</button>
+                <h5>Joliette Puzzles</h5>
+                <button id="redpear">Red Pear</button>
+                <button id="paintthetown">Paint The Town</button>
+                <button id="lopsided">Lopsided</button>
+                <button id="plus">Plus</button>
+                <button id="orangewall">Orange Wall</button>
+                <h5>Kamloops Puzzles</h5>
+                <button id="poddedpeas">Podded Peas</button>
+                <button id="letthemyellow">Let Them Yellow</button>
+                <button id="theoriginal">The Original</button>
+                <button id="stucktoyou">Stuck To You</button>
+                <button id="diagonalmirror">Diagonal Mirror</button>
+                <button id="fourshadowing">Four Shadowing</button>
+                <button id="fireballisland">Fireball Island</button>
+                <h5>London Puzzles</h5>
+                <button id="roundthetwist">Round The Twist</button>
+                <button id="moreismerrier">More Is Merrier</button>
+                <button id="threepeas">Three Peas</button>
+                <button id="akeetree">Akee Tree</button>
+                <button id="hookshot">Hookshot</button>
+                <button id="pickyourpartner">Pick Your Partner</button>
+                <button id="primer">Primer</button>
+                <button id="reunited">Reunited</button>
+                <button id="starstuck">Star Stuck</button>
+                <h5>Mississauga Puzzles</h5>
+                <button id="warmup">Warm Up</button>
+                <button id="thenumerator">The Numerator</button>
+                <button id="dronevsprobe">Drone vs Probe</button>
+                <button id="ochosrios">Ochos Rios</button>
+                <button id="portcredit">Port Credit</button>
+                <button id="turtle">Turtle</button>
+                <button id="factories">Factories</button>
+                <button id="tor">Tor</button>
+                <h5>Niagara Falls Puzzles</h5>
+                <button id="christmaseve">Christmas Eve</button>
+                <button id="gaius">Gaius</button>
+                <button id="candlesticks">Candlesticks</button>
+                <button id="horhey">Horhey</button>
+                <button id="argentan">Argentan</button>
+                <button id="wagonwheels">Wagon Wheels</button>
+                <button id="humber">Humber</button>
+                <button id="cooksvillecreek">Cooksville Creek</button>
+                <button id="machinegun">Machine Gun</button>
+                <h3>Trainyard Bonus Levels</h3>
+                <h5>Oakville Puzzles</h5>
+                <button id="alleyway">Alleyway</button>
+                <button id="recyclinggarbage">Recycling Garbage</button>
+                <button id="axiom">Axiom</button>
+                <button id="jagd">Jagd</button>
+                <button id="clowncar">Clown Car</button>
+                <button id="rockyroad">Rocky Road</button>
+                <button id="shanimal">Shanimal</button>
+                <button id="pwrovrwhlmng">Pwr Ovrwhlmng</button>
+                <button id="cayman">Cayman</button>
+                <h5>Peterborough Puzzles</h5>
+                <button id="klickers">Klickers</button>
+                <button id="hazard">Hazard</button>
+                <button id="asymmetric">Asymmetric</button>
+                <button id="squelchen">Squelchen</button>
+                <button id="miniyowe">Mini-Yo-We</button>
+                <button id="abarrelroll">A Barrel Roll</button>
+                <button id="lornepark">Lorne Park</button>
+                <button id="adama">Adama</button>
+                <button id="tonelympics">Tonelympics</button>
+                <h5>Quebec City Puzzles</h5>
+                <button id="fireeyed">Fire Eyed</button>
+                <button id="picnic">Picnic</button>
+                <button id="spindle">Spindle</button>
+                <button id="rebelt">Rebelt</button>
+                <button id="rgb">RGB</button>
+                <button id="drlinus">Dr. Linus</button>
+                <button id="glockenspiel">Glockenspiel</button>
+                <button id="jamboree">Jamboree</button>
+                <button id="licoriceallsorts">Licorice Allsorts</button>
+                <h5>Regina Puzzles</h5>
+                <button id="sangregrande">Sangre Grande</button>
+                <button id="thevariable">The Variable</button>
+                <button id="orff">Orff</button>
+                <button id="somewhere">Somewhere</button>
+                <button id="usector">U-Sector</button>
+                <button id="takingtrash">Taking Trash</button>
+                <button id="thequotient">The Quotient</button>
+                <button id="trinidad">Trinidad</button>
+                <button id="thedenominator">The Denominator</button>
+                <h5>St. John's Puzzles</h5>
+                <button id="backtobasics">Back To Basics</button>
+                <button id="theconstant">The Constant</button>
+                <button id="willow">Willow</button>
+                <button id="squier">Squier</button>
+                <button id="oakwoodave">Oakwood Ave</button>
+                <button id="conquistador">Conquistador</button>
+                <button id="erindale">Erindale</button>
+                <h5>Toronto Puzzles</h5>
+                <button id="waterfall">Waterfall</button>
+                <button id="norwich">Norwich</button>
+                <button id="volcano">Volcano</button>
+                <button id="threebelow">Three Below</button>
+                <button id="sliceoflife">Slice of Life</button>
+                <button id="mrmorgan">Mr. Morgan</button>
+                <button id="chief">Chief</button>
+                <h5>Uxbridge Puzzles</h5>
+                <button id="drummerboy">Drummer Boy</button>
+                <button id="forestave">Forest Ave</button>
+                <button id="parachute">Parachute</button>
+                <button id="thequest">The Quest</button>
+                <button id="kes">Kes</button>
+                <button id="mockingbird">Mockingbird</button>
+                <h5>Vancouver Puzzles</h5>
+                <button id="dropoff">Drop Off</button>
+                <button id="magiccarpet">Magic Carpet</button>
+                <button id="transmogrify">Transmogrify</button>
+                <button id="doppelganger">Doppelganger</button>
+                <button id="exhibitionstation">Exhibition Station</button>
+                <h5>Whitehourse Puzzles</h5>
+                <button id="focuspocus">Focus Pocus</button>
+                <button id="turing">Turing</button>
+                <button id="indusblue">Indusblue</button>
+                <button id="circlesquare">Circle Square</button>
+                <button id="bramblewoodlane">Bramblewood Line</button>
+                <h3>Featured Puzzle!</h3>
+                <button id="hurricane">Hurricane</button>
+            </div><br>
+            <button id="reset-stats">Reset all stats</button>
+        </div>
+        <div id="uncool-div">
+        <div id="cool-div">lag?</div></div>
+        <script src="trainyard.js"></script>
+        <script src="trainyardchallenges.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    </body>
+</html>

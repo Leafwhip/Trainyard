@@ -1,0 +1,137 @@
+body{
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%);
+}
+td {
+    width:60px;
+    height:60px;
+    user-select:none;
+    box-sizing:none;
+    word-wrap:break-word;
+    box-sizing:border-box;
+}
+.clear {
+    clear: left;
+}
+.no-border {
+    border: none;
+}
+.cell {
+    background: url('images/trainyard/background.png');
+}
+.selected {
+    background: url('images/trainyard/background-light.png');
+    z-index:1000;
+}
+.flex-break{
+    flex-basis:100%;
+    height:0;
+}
+.multiple-icon-holder {
+    width:42px;
+    height:42px;
+    margin:8px;
+    align-content:flex-start;
+    box-sizing:border-box;
+    display:flex;
+    flex-wrap:wrap;
+}
+#creator-grid, #player-grid {
+    float: left;
+    table-layout: fixed;
+    word-wrap:break-word;
+    border-collapse:collapse;
+    width:420px;
+    height:420px;
+}
+#layer1, #layer2, #layer3, #topLayer {
+    float:left;
+    table-layout:fixed;
+    width:420px;
+    height:420px;
+    position:absolute;
+    pointer-events:none;
+    border-collapse:collapse;
+}
+#topLayer td{
+    border:1px solid rgb(50,50,50);
+}
+#layer1 {
+    z-index:100;
+}
+#layer2 {
+    z-index:200;
+}
+#layer3 {
+    z-index:300;
+}
+#topLayer {
+    z-index:400;
+}
+#editor {
+    float: left;
+    border: 1px solid black;
+    width: 500px;
+    height: 200px;
+}
+#edit-output {
+    height:50px;
+    width:200px;
+    resize:none;
+    pointer-events:none;
+}
+#selected-text {
+    pointer-events:none;
+}
+#win-div-holder{
+    position:absolute;
+    border:none;
+    width:420px;
+    height:420px;
+    z-index:6000;
+}
+#win-div {
+    background:white;
+    border:1px solid black;
+    display:flex;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
+    width:80%;
+    height:40%;
+    margin-top:30%;
+    margin-left:10%;
+    opacity:0;
+}
+#win-div button{
+    width:30%;
+    height:20%;
+}
+#levelButtons button{
+    background: none;
+    border: none;
+    padding: 0;
+    font-family:'Times New Roman', Times, serif;
+    color: blue;
+    font-size:16px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#change-background-color input{
+    width:20px; 
+}
+#cool-div{
+    background-image:url('images/trainyard/train-yellow.png');
+    background-repeat:no-repeat;
+    transform:rotate(120deg);
+    width:40px;
+    height:20px;
+    position:absolute;
+    bottom:0;
+    left:0;
+}
+#uncool-div{
+    width:50px;
+    height:40px;    
+    position:absolute;
+    top:0;
+    right: 0;
+}
